@@ -1,52 +1,68 @@
 import pygame
+import entities
 from sys import exit
-
-class Paddle:
-    def __init__(self, windowWidth, windowHeight):
-        self.model = pygame.Surface((windowWidth/100,windowHeight/5))
-        self.model.fill('Yellow')
 
 
 def main():
-    windowHeight = 400
-    windowWidth = 800
     pygame.init() #runs images and plays sounds
-    screen = pygame.display.set_mode((windowWidth, windowHeight)) #sets display size
+    windowSize = (1600, 800)
+    screen = pygame.display.set_mode(windowSize) #sets display size
     pygame.display.set_caption('Paddle')
     clock = pygame.time.Clock() #used to set framerate
+    points = [0,0]
+    player, opponent, ball, scoreboard, field= entities.initialize(screen, windowSize, clock, points)
+    ongoing = True
+    active = True
+    gameWinSound = pygame.mixer.Sound ('audio/gameWin.wav')
     
-    background_surface = pygame.Surface((windowWidth,windowHeight)) #Creates Background
-    background_surface.fill('Blue')
-
-    player = Paddle(windowWidth, windowHeight) #Creates player paddle (Rightside of screen)
-    opponent = Paddle(windowWidth, windowHeight) #Creates Opponents Paddle (Leftside of screen)
-    
-    ball_surface = pygame.Surface((windowWidth*(1/100),windowHeight*(1/50))) #creates ball
-    ball_surface.fill('Yellow')    
-
-    title_font = pygame.font.Font(None, 50) #Sets font for title
-
-    title_surface = title_font.render('Paddle', False, 'Yellow') #Creates Pong TItle
-    
-    player.model.fill('Red')
-    
-    while True: #loop for running game
+    while(active): #loop for running game
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if(event.type == pygame.QUIT):
                 pygame.quit()#stops display
-                exit() #stops code execution
+                exit() #stops code executions
+            if(ongoing == False):
+                if(event.type == pygame.KEYDOWN):
+                    if(event.key == pygame.K_SPACE):
+                        ongoing = True
+                
+        if(ongoing == False):   
+            if(points[0] > 7):
+                points = [0,0]
+                player, opponewent, ball, scoreboard, field = entities.initialize(screen, windowSize, clock, points)
+
+                
+            if(points[1] > 7):
+                points = [0,0]
+                player, opponent, ball, scoreboard, field = entities.initialize(screen, windowSize, clock, points)
+                
         
-        screen.blit(background_surface,(0,0)) #Displays background
-        
-        screen.blit(opponent.model,(windowWidth/6, windowHeight/2)) #Displays Player
-        
-        screen.blit(player.model,(windowWidth*(5/6), windowHeight/4)) #Displays Opponent
-        
-        screen.blit(ball_surface,(windowWidth*(1/2), windowHeight*(1/2))) #Displays Ball
-        
-        screen.blit(title_surface,(windowWidth*(1/2)-50, windowHeight*(1/4))) #Displays Title
-        
-        pygame.display.update() #updates and initializes game display
-        clock.tick(60) #sets maximum framerate to 60
+        if(ongoing == True):
+            pressed = pygame.key.get_pressed()
+                    
+            player.move(screen, pressed, windowSize)
+                   
+            opponent.move(screen, pressed, windowSize)
+                
+            ball.move(screen, player, opponent, windowSize, points)
+            
+            screen.fill("White")
+            
+            player.draw(screen)
+            
+            opponent.draw(screen)
+            
+            field.draw(screen)
+            
+            ball.draw(screen)
+            
+            scoreboard.draw(screen, windowSize, points)
+            
+            if(points[0] > 7 or points[1] > 7):
+                pygame.mixer.stop()
+                gameWinSound.play()
+                ongoing = False
+
+            pygame.display.update() #updates and initializes game display
+            clock.tick(60) #sets maximum framerate to 60
         
 main()
