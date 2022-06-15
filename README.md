@@ -1,5 +1,8 @@
 # Paddle
-Paddle is a game where two players compete by hitting a ball off the opposing players screen. The player who scores recieves a point and after 8 points are scored, the player wins and the game ends.
+<image src= "https://user-images.githubusercontent.com/60895903/173858440-5e9bca47-4b53-4e98-84fc-05e17601011a.png" width = "60%" height = "60%"><br/> <br/>
+Paddle is a game where two players compete by hitting a ball off the opposing players screen.<br/>The player who scores recieves a point and after 8 points are scored, the player wins and the game ends.
+
+
 
 # Objective
 Develop an interactive videogame with the pygame library which has: <br/>
@@ -28,5 +31,4 @@ License: <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">C
 <a href = "https://freesound.org/people/EVRetro/sounds/535840/" >SPACE 1999: Commlock Open Communication (32F Wave) by Tormy </a> (Game over sound)
 <br />
 License: <a href="https://creativecommons.org/licenses/by/4.0/legalcode">Creative Commons 4.0</a>
-
 
