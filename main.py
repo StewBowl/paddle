@@ -86,8 +86,8 @@ class Ball: # ball entity starts at middle of field and randomly decides a direc
     def center(self, screen, WINDOW_WIDTH, WINDOW_HEIGHT): #centers ball after score
         self.position_x = WINDOW_WIDTH/2
         self.position_y =  WINDOW_HEIGHT/2
-        if random.randint(0,1): self.velocity_x = WINDOW_WIDTH/250 #generates random number to decide if player or opponent recieves ball
-        else: self.velocity_x = -WINDOW_WIDTH/250
+        if random.randint(0,1): self.velocity_x = WINDOW_WIDTH/180 #generates random number to decide if player or opponent recieves ball
+        else: self.velocity_x = -WINDOW_WIDTH/180
         self.velocity_y = random.randint(int(-WINDOW_HEIGHT/180), int(WINDOW_HEIGHT/180)) #randomly decided vertical direction of velocity
         Sounds().round_win.play()
     
@@ -142,8 +142,8 @@ def display(screen, clock, score, boundry, scoreboard, player, opponent, ball): 
 def main():
     pygame.init() #initializes all pygame modules
     WINDOW_DIMENSIONS = (1600, 800) #default values are 1600, 800
-    SCALED_WIDTH = (WINDOW_DIMENSIONS[0]/1600)*WINDOW_DIMENSIONS[0] #used to scale resolution when changed from default values
-    SCALED_HEIGHT = (WINDOW_DIMENSIONS[1]/800)*WINDOW_DIMENSIONS[1]
+    SCALED_WIDTH = (WINDOW_DIMENSIONS[0]/1600)*1600#used to scale resolution when changed from default values
+    SCALED_HEIGHT = (WINDOW_DIMENSIONS[1]/800)*800
     
     screen = pygame.display.set_mode(WINDOW_DIMENSIONS) #creates screen
     clock = pygame.time.Clock() #creates frane clock
